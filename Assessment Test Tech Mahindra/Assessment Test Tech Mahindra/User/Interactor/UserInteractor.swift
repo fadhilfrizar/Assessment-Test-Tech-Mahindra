@@ -13,7 +13,7 @@ class UserInteractor {
     
     func getUsers(page: Int) {
         guard let url = URL(string: "https://api.github.com/users?page=\(page)&per_page=30") else { return }
-        print("urls = \(url)")
+    
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 print(error.localizedDescription)
