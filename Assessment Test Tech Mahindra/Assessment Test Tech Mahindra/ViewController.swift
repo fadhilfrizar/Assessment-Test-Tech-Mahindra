@@ -139,10 +139,31 @@ extension ViewController {
         if searchText == "" {
             searchActive = false
         } else {
-            filteredUsers = users.filter{(user) -> Bool in
+            filteredUsers = users.filter{ (user) -> Bool in
                 return user.login.range(of: searchText, options: [ .caseInsensitive ]) != nil
             }
             searchActive = true
+        }
+        
+        //MARK: check for empty data
+        var matchFound = false
+        for element in filteredUsers {
+            if element.login.range(of: searchText, options: .caseInsensitive) != nil {
+                matchFound = true
+                break
+            }
+        }
+        if matchFound {
+            // Match data found
+            self.emptyTitleLabel.text = ""
+        } else {
+            // No match data found
+            if searchText == "" && searchText.isEmpty {
+                self.emptyTitleLabel.text = ""
+            } else {
+                self.emptyTitleLabel.text = "There is no data = \(searchText)"
+            }
+            
         }
         
         self.tableView.reloadData()
